@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Message ❤️</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #fff0f3 0%, #ffccd5 100%);
+            font-family: 'Georgia', serif;
+            overflow: hidden;
+            transition: background 2s ease;
+        }
+        .card {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 3rem;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
+            z-index: 10;
+            max-width: 400px;
+            border: 2px solid #ff4d6d;
+        }
+        h1 { color: #c9184a; margin-bottom: 2rem; font-size: 1.8rem; font-style: italic; }
+        .btns { display: flex; justify-content: center; gap: 20px; min-height: 50px; }
+        button {
+            padding: 12px 35px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            font-weight: bold;
+        }
+        #yes { background: #ff4d6d; color: white; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4); }
+        #no { 
+            background: #adb5bd; 
+            color: white; 
+            position: absolute; 
+            transition: 0.15s ease;
+            z-index: 100;
+        }
+        .celebration-img {
+            max-width: 100%;
+            border-radius: 15px;
+            margin-top: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            animation: fadeIn 2s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        
+        /* Floating hearts animation */
+        .heart {
+            position: absolute;
+            color: #ff4d6d;
+            font-size: 20px;
+            animation: float 4s linear forwards;
+            z-index: 1;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="mySong">
+        <source src="https://instrumentalfx.co/wp-content/upload/10/Eed-sheeran-perfect-instrumentalfx.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="card" id="mainCard">
+        <h1>Happily married again? 💍</h1>
+        <div class="btns">
+            <button id="yes" onclick="celebrate()">Yes</button>
+            <button id="no" onmouseover="move()" ontouchstart="move()">No</button>
+        </div>
+    </div>
+
+    <script>
+        function move() {
+            const no = document.getElementById('no');
+            const x = Math.random() * (window.innerWidth - no.offsetWidth);
+            const y = Math.random() * (window.innerHeight - no.offsetHeight);
+            no.style.left = x + 'px';
+            no.style.top = y + 'px';
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+
+        function celebrate() {
+            const audio = document.getElementById('mySong');
+            audio.play();
+
+            // Heart Rain effect
+            setInterval(createHeart, 300);
+            
+            const card = document.getElementById('mainCard');
+            // Using your Imgur link - added 'i.' and '.jpg' to ensure the image displays directly
+            const photoUrl = "https://i.imgur.com/vHqY7pT.jpg"; 
+
+            card.innerHTML = `
+                <h1 style="color: #c9184a;">❤️ YES! ❤️</h1>
+                <p style="font-size: 1.1rem; color: #555;">To a lifetime of love and happiness together.</p>
+                <img src="${photoUrl}" class="celebration-img" alt="Us">
+            `;
+            document.body.style.background = "#ffb3c1";
+        }
+    </script>
+</body>
+</html>
